@@ -28,7 +28,7 @@ exports.loginUser = async (req, res) => {
                 if (same) {
                     // user session
                     req.session.userID = user._id;
-                    res.status(200).redirect('/');
+                    res.status(200).redirect('/users/dashboard');
                 }
             });
         }
@@ -38,4 +38,19 @@ exports.loginUser = async (req, res) => {
             error,
         });
     }
+};
+
+exports.logoutUser = (req, res) => {
+    req.session.destroy(() => {
+        res.redirect('/');
+    });
+};
+
+exports.getDashboardPage = async (req, res) => {
+    const user = await User.findOne({ _id: req.session.userID });
+
+    res.status(200).render('dashboard', {
+        page_name: 'dashboard',
+        user,
+    });
 };
