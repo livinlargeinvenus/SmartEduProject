@@ -15,6 +15,24 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-9 blog-post-single">
+
+				<% if (flashMessage) { %>
+					<% if (flashMessage.success) { %>
+	
+						<div class="alert alert-success">
+							<%= flashMessage.success %>
+						</div>
+	
+					<% } else if (flashMessage.error) { %>
+	
+						<div class="alert alert-danger">
+							<%= flashMessage.error %>
+						</div>
+	
+					<% } %>
+	
+				<% } %>
+				
 				<div class="row">
 
 					<% courses.forEach( course => { %>
@@ -34,7 +52,7 @@
 							</div>
 							<div class="course-meta-bot">
 								<ul>
-									<li><i class="fa fa-user" aria-hidden="true"></i>Teacher Name</li>
+									<li><i class="fa fa-user" aria-hidden="true"></i> <%= course.user.name %> </li>
 								</ul>
 							</div>
 						</div>
@@ -48,11 +66,11 @@
 			<div class="col-lg-3 col-12 right-single">
 				<div class="widget-search">
 					<div class="site-search-area">
-						<form method="get" id="site-searchform" action="#">
+						<form method="GET" id="site-searchform" action="/courses">
 							<div>
-								<input class="input-text form-control" name="search-k" id="search-k"
-									placeholder="Search keywords..." type="text">
-								<input id="searchsubmit" value="Search" type="submit">
+								<input class="input-text form-control" name="search" id="search-k"
+									placeholder="Search..." type="text">
+								<button id="searchsubmit" value="Search" type="submit"></button>
 							</div>
 						</form>
 					</div>
